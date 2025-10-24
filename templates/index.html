@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health & Lifestyle Prediction</title>
+  <style>
+    /* ===== Global Styles ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      width: 100%;
+      max-width: 450px;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.5s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4e54c8;
+      margin-bottom: 20px;
+      font-size: 1.6rem;
+    }
+
+    .field {
+      margin-bottom: 15px;
+      /* margin-left: 15px; */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #4e54c8;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      background: #4e54c8;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #373b9e;
+    }
+
+    #result {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f1f3ff;
+      color: #333;
+      font-weight: 600;
+      text-align: center;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== Mobile Responsive ===== */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Health & Lifestyle Prediction</h1>
+
+    <div class="field">
+      <label for="age">Age (years)</label>
+      <input type="number" id="age" placeholder="Enter your age">
+    </div>
+
+    <div class="field">
+      <label for="weight">Weight (kg)</label>
+      <input type="number" id="weight" placeholder="Enter your weight">
+    </div>
+
+    <div class="field">
+      <label for="height">Height (cm)</label>
+      <input type="number" id="height" placeholder="Enter your height">
+    </div>
+
+    <div class="field">
+      <label for="exercise">Exercise Level</label>
+      <select id="exercise">
+        <option value="">Select</option>
+        <option value="3">None</option>
+        <option value="0">Low</option>
+        <option value="1">Medium</option>
+        <option value="2">High</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="sleep">Sleep (hours per night)</label>
+      <input type="number" id="sleep" placeholder="e.g. 7">
+    </div>
+
+    <!-- <div class="field">
+      <label for="sugar_intake">Sugar Intake</label>
+      <select id="sugar_intake">
+        <option value="">Select</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div> -->
+
+    <div class="field">
+      <label for="smoking">Smoking</label>
+      <select id="smoking">
+        <option value="">Select</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="alcohol">Alcohol</label>
+      <select id="alcohol">
+        <option value="">Select</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="married">Married</label>
+      <select id="married">
+        <option value="">Select</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <!-- <label for="profession">Profession</label>
+     Artist: <input type="radio" title="profession_artist" id="profession_artist" value = 1/>
+
+     <label for="profession">Profession</label>
+     Doctor: <input type="radio" title="profession_doctor" id="profession_doctor" value = 1/>
+
+     <label for="profession">Profession</label>
+     driver: <input type="radio" title="profession_driver" id="profession_driver" value = 1/>
+
+      <label for="profession">Profession</label>
+  engineer: <input type="radio" title="profession_engineer" id="profession_engineer" value = 1/>
+
+   <label for="profession">Profession</label>
+     farmer: <input type="radio" title="profession_farmer" id="profession_farmer" value = 1/>
+
+     <label for="profession">Profession</label>
+     office worker: <input type="radio" title="profession_officeworker" id="profession_officeworker" value = 1/>
+
+      <label for="profession">Profession</label>
+     Student: <input type="radio" title="profession_student" id="profession_student" value = 1/>
+
+     <label for="profession">Profession</label>
+     Teacher: <input type="radio" title="profession_teacher" id="profession_teacher" value = 1/> -->
+
+      <input type="button" id="artist" value="Artist" onclick="artist()">
+      <input type="button" id="doctor" value="Doctor" onclick="doctor()">
+      <input type="button" id="driver" value="Driver" onclick="driver()">
+      <input type="button" id="engineer" value="Engineer" onclick="engineer()">
+      <input type="button" id="farmer" value="Farmer" onclick="farmer()">
+      <input type="button" id="officeworker" value="Office Worker" onclick="officeworker()">
+      <input type="button" id="student" value="Student" onclick="student()">
+      <input type="button" id="teacher" value="Teacher" onclick="teacher()">
+
+
+    </div>
+
+
+    <div class="field">
+      <label for="bmi">BMI</label>
+      <input type="number" id="bmi" placeholder="e.g. 24.5" step="0.1">
+    </div>
+
+    <button onclick="sendData()">Predict</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+
+    const professionButtons = {
+      artist: 0,
+      doctor: 0,
+      driver: 0,
+      engineer: 0,
+      farmer: 0,
+      officeworker: 0,
+      student: 0,
+      teacher: 0
+    };
+    function artist() {
+      //resetProfessionButtons();
+      professionButtons.artist = 1;
+      alert("Profession set to Artist");
+    }
+    function doctor() {
+      //   resetProfessionButtons();
+      professionButtons.doctor = 1;
+      alert("Profession set to Doctor");
+    }
+    function driver() {
+      //   resetProfessionButtons();
+      professionButtons.driver = 1;
+      alert("Profession set to Driver");
+    }
+    function engineer() {
+      //   resetProfessionButtons();
+
+      professionButtons.engineer = 1;
+      alert("Profession set to Engineer");
+    }
+
+    function farmer() {
+      //   resetProfessionButtons();
+      professionButtons.farmer = 1;
+      alert("Profession set to Farmer");
+    }
+    function officeworker() {
+      //   resetProfessionButtons();
+      professionButtons.officeworker = 1;
+      alert("Profession set to Office Worker");
+    }
+    function student() {
+      //   resetProfessionButtons();
+      professionButtons.student = 1;
+      alert("Profession set to Student");
+    }
+    function teacher() {
+      //   resetProfessionButtons();
+      professionButtons.teacher = 1;
+      alert("Profession set to Teacher");
+    }
+
+
+
+
+
+    async function sendData() {
+      const data = {
+        age: Number(document.getElementById("age").value),
+        weight: Number(document.getElementById("weight").value),
+        height: Number(document.getElementById("height").value),
+        sleep: Number(document.getElementById("sleep").value),
+        // : document.getElementById("sugar_intake").value,
+        bmi: Number(document.getElementById("bmi").value)
+        ,
+        profession_artist: professionButtons.artist,
+        profession_doctor: professionButtons.doctor,
+        profession_driver: professionButtons.driver,
+        profession_engineer: professionButtons.engineer,
+        profession_farmer: professionButtons.farmer,
+        profession_office_worker: professionButtons.officeworker,
+        profession_student: professionButtons.student,
+        profession_teacher: professionButtons.teacher,
+        exercies_ord: Number(document.getElementById("exercise").value),
+        married_le: Number(document.getElementById("married").value),
+        alcohol_le: Number(document.getElementById("alcohol").value),
+        smoking_le: Number(document.getElementById("smoking").value),
+      };
+
+      console.log(data);
+
+      const response = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const resultData = await response.json();
+      const resultBox = document.getElementById("result");
+      resultBox.style.display = "block";
+      console.log(resultData);
+      if (Number(resultData) == 1) {
+        resultBox.innerText = "Prediction: Your Health is at risk";
+      } else (Number(resultData) == 0) 
+      {
+        resultBox.innerText = "Prediction: You are Healthy";
+      // } else {
+      //   resultBox.innerText = "Error in prediction";
+      }
+
+    }
+  </script>
+</body>
+
+</html>
